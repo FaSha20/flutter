@@ -1,4 +1,4 @@
-# Flutter's display features
+<img width="881" alt="Screenshot (73)" src="https://github.com/FaSha20/flutter/assets/90645162/1ca6f212-ca70-4f8f-8eab-ea20b7e1375e"># Flutter's display features
 
 ## Display gifs
 
@@ -81,6 +81,8 @@ controller.value = v;
   )
   ```
 
+<img width="960" alt="Screenshot (74)" src="https://github.com/FaSha20/flutter/assets/90645162/70315e1b-a6f3-4e31-ad79-fb6f6d3d7184">
+
 
  ## Display Video stream
 
@@ -92,7 +94,7 @@ controller = VideoPlayerController.networkUrl(
         'https://flutter.github.io/assets-for-api-docs/assets/videos/butterfly.mp4',
       ),
 ```
-  Then we can use the controller to apply operationس on video, like pause and play or getting  display status of video.
+  Then we can use the controller to apply operations on video, like `pause()` , `play()` or getting  display status of video( `isPlaying()` ).
 
   ```
 onPressed: () {
@@ -106,6 +108,20 @@ onPressed: () {
       }
     });
 ```
+**value** method help us to access some values of video stream and change them, like aspect ratio and duration. 
+```
+ aspectRatio: 7/4 * controller.value.aspectRatio,
+...
+ Text("Total Duration: ${controller.value.duration}"),
+
+```
+**seekTo** method ,sets the video's current timestamp to be at `moment`. The next time the video is played it will resume from the given `moment`.
+```
+controller.seekTo(moment);
+```
+
+<img width="881" alt="Screenshot (73)" src="https://github.com/FaSha20/flutter/assets/90645162/de289281-6f32-4db7-a765-a5119c081985">
+
 
 ## Camera Access
 

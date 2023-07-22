@@ -17,7 +17,7 @@
 ```
 ### These are the most common operations in FlutterGifController:
 
-- **Repeat** an operation that displays the gif for `n` milisecond from frame `i` to `j`.
+- **Repeat:** an operation that displays the gif for `n` milisecond from frame `i` to `j`.
   
 ```
 controller1.repeat(
@@ -27,22 +27,22 @@ controller1.repeat(
       );
   ```
 
-- **AnimateTo** an operation that displays the gif until frame `n`.
+- **AnimateTo:** an operation that displays the gif until frame `n`.
   
 ```
-controller3.animateTo(
+controller.animateTo(
           n,
          duration: const Duration(milliseconds: 1000)
         );
   ```
 
-- **Value** an operation that Makes the gif jump to the v'th frame and also notifies all the status listeners.
+- **Value:** an operation that Makes the gif jump to the `v`'th frame and also notifies all the status listeners.
   
 ```
 controller.value = v;
   ```
 
- - **Stop** an operation that stops the gif display where it is at the moment
+ - **Stop:** an operation that stops the gif display where it is at the moment
 ```
  ElevatedButton(
   child: const Text("Pause"),

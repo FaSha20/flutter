@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_gif/flutter_gif.dart';
+import 'package:video_player/video_player.dart';
 
 void main() => runApp(const MyApp());
 
@@ -30,12 +31,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   late FlutterGifController controller1, controller2, controller3, controller4;
+  late VideoPlayerController controller5;
 
   @override
   void initState() {
     controller1 = FlutterGifController(vsync: this);
     controller2 = FlutterGifController(vsync: this);
     controller4 = FlutterGifController(vsync: this);
+    loadVideoPlayer();
+    
     WidgetsBinding.instance.addPostFrameCallback((_) {
       controller1.repeat(
         min: 0,
@@ -62,34 +66,47 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
     );
     super.initState();
   }
-
+  loadVideoPlayer(){
+     controller5 = VideoPlayerController.asset('assets/Blossom.mp4');
+     controller5.addListener(() {
+        setState(() {});
+     });
+    controller5.initialize().then((value){
+        setState(() {});
+    });
+  }
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         appBar: AppBar(
           title: Text(widget.title),
           bottom: const TabBar(
             tabs: [
               Tab(
-                child: Text("Different types of pictures"),
+                child: Text("Display gif"),
               ),
               Tab(
-                child: Text("Way to control"),
+                child: Text("Control the gif"),
+              ),
+              Tab(
+                child: Text("Display video"),
               )
             ],
           ),
         ),
         body: TabBarView(
           children: [
+
             ListView(
               children: [
                 const Text("Internet"),
                 GifImage(
                   controller: controller2,
-                  image: const NetworkImage(
-                      "http://img.mp.itc.cn/upload/20161107/5cad975eee9e4b45ae9d3c1238ccf91e.jpg"),                
+                  // image: const NetworkImage(
+                  //     "http://img.mp.itc.cn/upload/20161107/5cad975eee9e4b45ae9d3c1238ccf91e.jpg"),                
+                  image: const AssetImage("assets/flowers.gif"),
                   height: 100,
                   width: 200,
                 ),
@@ -104,12 +121,13 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 const Text("MemoryImage (eg. Base64Url)"),
                 GifImage(
                   controller: controller4,
-                  image: const AssetImage("assets/flowers.gif"),
+                  image: const AssetImage("assets/earth.gif"),
                   height: 100,
                   width: 200, 
                 )
               ],
             ),
+
             Column(
               children: [
                 Row(
@@ -154,36 +172,62 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                   width: 200, 
                 ),
               ],
+            ),
+
+            ListView(
+              children:[
+                  AspectRatio( 
+                    aspectRatio: 7/4 * controller5.value.aspectRatio,
+                     child: VideoPlayer(controller5),
+
+                  ),
+
+                  Text("Total Duration: ${controller5.value.duration}"),
+
+                  VideoProgressIndicator(
+                    controller5, 
+                    allowScrubbing: true,
+                    colors:const VideoProgressColors(
+                        backgroundColor: Colors.redAccent,
+                        playedColor: Colors.green,
+                        bufferedColor: Colors.purple,
+                    )
+                  ),
+
+                  Row(
+                      children: [
+                         IconButton(
+                             onPressed: (){
+                               if(controller5.value.isPlaying){
+                                 controller5.pause();
+                               }else{
+                                 controller5.play();
+                               }
+
+                               setState(() {
+                                 
+                               });
+                             }, 
+                             icon:Icon(controller5.value.isPlaying?Icons.pause:Icons.play_arrow)
+                        ),
+
+                        IconButton(
+                             onPressed: (){
+                               controller5.seekTo(const Duration(seconds: 0));
+
+                               setState(() {
+                                 
+                               });
+                             }, 
+                             icon:const Icon(Icons.stop)
+                        )
+                      ],
+                  )
+              ]
             )
-          ],
+            ],
+          )
         ),
-      ),
-    );
+      );
   }
 }
-
-
-
-
-// import 'package:flutter/material.dart';
-
-// void main() => runApp(const MyApp());
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     var title = 'Web Images';
-
-//     return MaterialApp(
-//       title: title,
-//       home: Scaffold(
-//         appBar: AppBar(
-//           title: Text(title),
-//         ),
-//         body: Image.network('https://picsum.photos/250?image=9',width: 1000,height: 3000,),
-//       ),
-//     );
-//   }
-// }

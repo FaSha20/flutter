@@ -11,6 +11,8 @@
     GifImage(
          controller: controller,
          image: AssetImage("images/animate.gif"),
+         height: 100,
+         width: 200,
     )
 ```
 ### These are the most common operations in FlutterGifController:
@@ -25,7 +27,7 @@ controller1.repeat(
       );
   ```
 
-- **AnimateTo** an operation that jump from current frame to `n` frame.
+- **AnimateTo** an operation that displays the gif until frame `n`.
   
 ```
 controller3.animateTo(
@@ -34,11 +36,21 @@ controller3.animateTo(
         );
   ```
 
-- **Value** an operation that jumpTo thrid frame(index from `v`).
+- **Value** an operation that Makes the gif jump to the v'th frame and also notifies all the status listeners.
   
 ```
 controller.value = v;
   ```
+
+ - **Stop** an operation that stops the gif display where it is at the moment
+```
+ ElevatedButton(
+  child: const Text("Pause"),
+  onPressed: () {
+    controller.stop();
+  },
+),
+```
 --------------------------------------------------------------------------------------------------
 
 `gif_view` is another package that displays and manioulate gifs from assets folder, net or memory:

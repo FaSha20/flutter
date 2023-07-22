@@ -1,4 +1,4 @@
-<img width="881" alt="Screenshot (73)" src="https://github.com/FaSha20/flutter/assets/90645162/1ca6f212-ca70-4f8f-8eab-ea20b7e1375e"># Flutter's display features
+# Flutter's display features
 
 ## Display gifs
 

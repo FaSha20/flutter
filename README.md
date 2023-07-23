@@ -125,36 +125,51 @@ controller.seekTo(moment);
 
 ## Camera Access
 
-We can have access to camera to take pictures using `image_picker` and `camera` package.
-- With this operation we can obtain a list of the available cameras on the device.
+We can have access to camera to take pictures using `camera` package.
+- With this operation we can obtain a list of the available cameras on the device, then get a specific camera from the list of available cameras.
 
 ```
-final cameras = await availableCameras();
+  final cameras = await availableCameras();
+  final firstCamera = cameras.first;
 ```
-- Once we get a camera list , we have to create and initialize a `CameraController`
+- Get a specific camera from the list of available cameras and define the resolution to use. Then we have to create and initialize a `CameraController`
   
 ```
-class CameraPage extends StatefulWidget {
-  final List<CameraDescription>? cameras;
-  const CameraPage(
-    {Key? key, required this.cameras}) : super(key:key);
-  @override
-  State<CameraPage> createState() => _CameraPageState();
+late CameraController _controller;
+late Future<void> _initializeControllerFuture;
+...
+cameraAccess(){
+     _controller = CameraController(
+      widget.camera,
+      ResolutionPreset.medium,
+    );
+    _initializeControllerFuture = _controller.initialize();
 }
-class _CameraPageState extends State<CameraPage> {
-  late CameraController _cameraController;
 ```
 
- - We can start using the `CameraPreview` widget from the `camera` package to display a preview of the camera’s feed.
+ - After ensuring that the camera is initialized, we can start using the `CameraPreview` widget from the `camera` package to display a preview of the camera’s feed.
 the preview looks like below:
-
-![1_au6fdZoAqZ996fRFlcYujA](https://github.com/FaSha20/flutter/assets/90645162/c8fcfb6d-6893-4275-b3c5-81b1160a58fc)
-
-- To take picture we need to make a call to the `takePicture` method,
+<img width="949" alt="Screenshot (77)" src="https://github.com/FaSha20/flutter/assets/90645162/7833d367-468f-4cb1-9a0f-739e1b3a0245">
 
 ```
-XFile picture = await _cameraController.takePicture();
+await _initializeControllerFuture;
 ```
+- The `takePicture` method is used to take a picture and return the image file where the image is stored.
+  If the photo is successfully taken، it will be displayed on a new screen.
+``` 
+final image = await _controller.takePicture();
+...
+await Navigator.of(context).push(
+  MaterialPageRoute(
+    builder: (context) => DisplayPictureScreen(
+      imagePath: image.path,
+    ),
+  ),
+);
+```
+<img width="960" alt="Screenshot (78)" src="https://github.com/FaSha20/flutter/assets/90645162/2f9906a6-1d86-49cc-b470-586af6b9e33e">
+
+
 
 
 

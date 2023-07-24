@@ -80,8 +80,9 @@ controller.value = v;
     width: 200,
   )
   ```
+<img width="960" alt="Screenshot (74)" src="https://github.com/FaSha20/flutter/assets/90645162/ca047215-1bf7-470a-8963-7b6d9827b1a2">
 
-<img width="960" alt="Screenshot (74)" src="https://github.com/FaSha20/flutter/assets/90645162/70315e1b-a6f3-4e31-ad79-fb6f6d3d7184">
+
 
 
  ## Display Video stream
@@ -120,7 +121,8 @@ onPressed: () {
 controller.seekTo(moment);
 ```
 
-<img width="881" alt="Screenshot (73)" src="https://github.com/FaSha20/flutter/assets/90645162/de289281-6f32-4db7-a765-a5119c081985">
+<img width="881" alt="Screenshot (73)" src="https://github.com/FaSha20/flutter/assets/90645162/7f355635-509f-45ff-8e63-a87e5a9f75b4">
+
 
 
 ## Camera Access
